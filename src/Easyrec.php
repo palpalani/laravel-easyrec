@@ -420,7 +420,7 @@ class Easyrec {
 		$endpoint = $this->getEndpoint();
 		if (is_null($endpoint))
 			throw new InvalidArgumentException("Endpoint name was not set.", 1);
-
+		/*
 		// Prepare the request
 		$request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
 
@@ -429,6 +429,16 @@ class Easyrec {
 
 		// Parse JSON and returns an array
 		$this->setResponse($result = $response->json());
+		*/
+		
+		$client = new \GuzzleHttp\Client(['base_uri' => $this->getBaseURL()]);
+        	$response = $client->request('GET', $endpoint, [
+		    'query' => $this->queryParams
+        	]);
+        	$result = json_decode($response->getBody()->getContents());
+		
+		// Parse JSON and returns an array
+		$this->setResponse($result);
 
 		// Check if we had an error
 		if ($this->responseHasError())
