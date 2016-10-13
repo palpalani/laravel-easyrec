@@ -39,11 +39,11 @@ You'll then need to run `composer install` or `composer update` to download it a
 
 Once Laravel Easyrec is installed, you need to register the service provider. Open up `config/app.php` and add the following to the `providers` key.
 
-* `'Antoineaugusti\LaravelEasyrec\LaravelEasyrecServiceProvider'`
+* `Antoineaugusti\LaravelEasyrec\LaravelEasyrecServiceProvider::class`
 
 You can register the Easyrec facade in the `aliases` key of your `config/app.php` file if you like.
 
-* `'Easyrec' => 'Antoineaugusti\LaravelEasyrec\Facades\LaravelEasyrec'`
+* `'Easyrec' => Antoineaugusti\LaravelEasyrec\Facades\LaravelEasyrec::class
 
 #### Looking for a Laravel 4 compatible version?
 
