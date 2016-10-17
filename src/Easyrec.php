@@ -14,6 +14,7 @@ class Easyrec
     // private $httpClient;
     private $queryParams;
     private $response;
+    private $tenantKey;
 
     public function __construct($config)
     {
@@ -83,28 +84,44 @@ class Easyrec
         // Set the endpoint name and send the request
         $this->setEndpoint('view');
 
-        return $this->sendRequest($tenantKey);
+        $this->tenantKey = $tenantKey;
+
+        return $this->sendRequest();
     }
 
     /**
      * @see view
      */
-    public function buy($itemid, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
-    {
-        if (is_null($sessionid))
+    public function buy(
+        $tenantKey,
+        $itemid,
+        $itemdescription,
+        $itemurl,
+        $userid = null,
+        $itemimageurl = null,
+        $actiontime = null,
+        $itemtype = null,
+        $sessionid = null
+    ) {
+        if (is_null($sessionid)) {
             $sessionid = Session::getId();
+        }
 
-        foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param)
+        foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param) {
             $this->setQueryParam($param, $$param);
+        }
 
         // Set the endpoint name and send the request
         $this->setEndpoint('buy');
+
+        $this->tenantKey = $tenantKey;
 
         return $this->sendRequest();
     }
 
     /**
      * This action should be raised if a user rates an item.
+     * @param  string $tenantKey Tenant Key
      * @param  string $itemid An item ID to identify an item on your website. Eg: "POST42"
      * @param  integer $ratingvalue The rating value of the item. Must be an integer in the range from 1 to 10.
      * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
@@ -116,26 +133,41 @@ class Easyrec
      * @param  string $sessionid A session ID of a user.
      * @return array The decoded JSON response
      */
-    public function rate($itemid, $ratingvalue, $itemdescription, $itemurl, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
-    {
+    public function rate(
+        $tenantKey,
+        $itemid,
+        $ratingvalue,
+        $itemdescription,
+        $itemurl,
+        $userid = null,
+        $itemimageurl = null,
+        $actiontime = null,
+        $itemtype = null,
+        $sessionid = null
+    ) {
         // Check that the $ratingvalue as got the expected format
         if (!is_numeric($ratingvalue) OR $ratingvalue > 10 OR $ratingvalue < 1)
-            throw new InvalidArgumentException("The rating value should be between 1 and 10.", 1);
+            throw new InvalidArgumentException('The rating value should be between 1 and 10.', 1);
 
-        if (is_null($sessionid))
+        if (is_null($sessionid)) {
             $sessionid = Session::getId();
+        }
 
-        foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param)
+        foreach (['userid', 'ratingvalue', 'sessionid', 'itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'actiontime', 'itemtype'] as $param) {
             $this->setQueryParam($param, $$param);
+        }
 
         // Set the endpoint name and send the request
         $this->setEndpoint('rate');
+
+        $this->tenantKey = $tenantKey;
 
         return $this->sendRequest();
     }
 
     /**
      * This action can be used to send generic user actions.
+     * @param  string $tenantKey Tenant Key
      * @param  string $itemid An item ID to identify an item on your website. Eg: "POST42"
      * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
      * @param  string $itemurl An item URL that links to the item page. Please give an absolute path.
@@ -148,16 +180,31 @@ class Easyrec
      * @param  string $sessionid A session ID of a user.
      * @return array The decoded JSON response
      */
-    public function sendAction($itemid, $itemdescription, $itemurl, $actiontype, $actionvalue = null, $userid = null, $itemimageurl = null, $actiontime = null, $itemtype = null, $sessionid = null)
-    {
-        if (is_null($sessionid))
+    public function sendAction(
+        $tenantKey,
+        $itemid,
+        $itemdescription,
+        $itemurl,
+        $actiontype,
+        $actionvalue = null,
+        $userid = null,
+        $itemimageurl = null,
+        $actiontime = null,
+        $itemtype = null,
+        $sessionid = null
+    ) {
+        if (is_null($sessionid)){
             $sessionid = Session::getId();
+        }
 
-        foreach (['itemid', 'itemdescription', 'itemurl', 'actiontype', 'actionvalue', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param)
+        foreach (['itemid', 'itemdescription', 'itemurl', 'actiontype', 'actionvalue', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param) {
             $this->setQueryParam($param, $$param);
+        }
 
         // Set the endpoint name and send the request
         $this->setEndpoint('sendaction');
+
+        $this->tenantKey = $tenantKey;
 
         return $this->sendRequest();
     }
@@ -183,7 +230,7 @@ class Easyrec
     {
         // Check that $numberOfResults has got the expected format
         if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
-            throw new InvalidArgumentException("The number of results should be at least 1.", 1);
+            throw new InvalidArgumentException('The number of results should be at least 1.', 1);
 
         // Can't currently retrieve more than 15 results
         $numberOfResults = min($numberOfResults, 15);
@@ -200,24 +247,48 @@ class Easyrec
     /**
      * @see abstractRecommendationEndpoint
      */
-    public function usersAlsoViewed($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
-    {
+    public function usersAlsoViewed(
+        $tenantKey,
+        $itemid,
+        $userid = null,
+        $numberOfResults = 10,
+        $itemtype = null,
+        $requesteditemtype = null,
+        $withProfile = false
+    ) {
+        $this->tenantKey = $tenantKey;
         return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractRecommendationEndpoint
      */
-    public function usersAlsoBought($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
-    {
+    public function usersAlsoBought(
+        $tenantKey,
+        $itemid,
+        $userid = null,
+        $numberOfResults = 10,
+        $itemtype = null,
+        $requesteditemtype = null,
+        $withProfile = false
+    ) {
+        $this->tenantKey = $tenantKey;
         return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractRecommendationEndpoint
      */
-    public function ratedGoodByOther($itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
-    {
+    public function ratedGoodByOther(
+        $tenantKey,
+        $itemid,
+        $userid = null,
+        $numberOfResults = 10,
+        $itemtype = null,
+        $requesteditemtype = null,
+        $withProfile = false
+    ) {
+        $this->tenantKey = $tenantKey;
         return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -230,17 +301,26 @@ class Easyrec
      * @param  boolean $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
      * @return array The decoded JSON response
      */
-    public function recommendationsForUser($userid, $numberOfResults = 10, $requesteditemtype = null, $actiontype = "VIEW", $withProfile = false)
-    {
+    public function recommendationsForUser(
+        $tenantKey,
+        $userid, $numberOfResults = 10,
+        $requesteditemtype = null,
+        $actiontype = 'VIEW',
+        $withProfile = false
+    ) {
+        $this->tenantKey = $tenantKey;
+
         // Check that $numberOfResults has got the expected format
-        if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
-            throw new InvalidArgumentException("The number of results should be at least 1.", 1);
+        if (!is_numeric($numberOfResults) OR $numberOfResults < 0) {
+            throw new InvalidArgumentException('The number of results should be at least 1.', 1);
+        }
 
         // Can't currently retrieve more than 15 results
         $numberOfResults = min($numberOfResults, 15);
 
-        foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype', 'withProfile'] as $param)
+        foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype', 'withProfile'] as $param) {
             $this->setQueryParam($param, $$param);
+        }
 
         // Set the endpoint name and send the request
         $this->setEndpoint('recommendationsforuser');
@@ -260,7 +340,7 @@ class Easyrec
     {
         // Check that $numberOfResults has got the expected format
         if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
-            throw new InvalidArgumentException("The number of results should be at least 1.", 1);
+            throw new InvalidArgumentException('The number of results should be at least 1.', 1);
 
         // Can't currently retrieve more than 15 results
         $numberOfResults = min($numberOfResults, 15);
@@ -294,14 +374,14 @@ class Easyrec
     {
         // Check that $numberOfResults has got the expected format
         if (!is_numeric($numberOfResults) OR $numberOfResults < 0)
-            throw new InvalidArgumentException("The number of results should be at least 1.", 1);
+            throw new InvalidArgumentException('The number of results should be at least 1.', 1);
 
         // Can't currently retrieve more than 50 results
         $numberOfResults = min($numberOfResults, 50);
 
         // Check that $timeRange has got the expected format
         if (!in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL']))
-            throw new InvalidArgumentException("Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.", 1);
+            throw new InvalidArgumentException('Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.', 1);
 
         foreach (['numberOfResults', 'timeRange', 'requesteditemtype', 'withProfile'] as $param)
             $this->setQueryParam($param, $$param);
@@ -385,7 +465,18 @@ class Easyrec
      */
     public function doesEndpointListItems()
     {
-        return in_array($this->getEndpoint(), ['otherusersalsoviewed', 'otherusersalsobought', 'itemsratedgoodbyotherusers', 'recommendationsforuser', 'mostvieweditems', 'mostboughtitems', 'mostrateditems', 'bestrateditems', 'worstrateditems', 'actionhistoryforuser']);
+        return in_array($this->getEndpoint(), [
+            'otherusersalsoviewed',
+            'otherusersalsobought',
+            'itemsratedgoodbyotherusers',
+            'recommendationsforuser',
+            'mostvieweditems',
+            'mostboughtitems',
+            'mostrateditems',
+            'bestrateditems',
+            'worstrateditems',
+            'actionhistoryforuser'
+        ]);
     }
 
     /**
@@ -413,7 +504,7 @@ class Easyrec
     public function retrieveFirstErrorFromResponse()
     {
         if (!$this->responseHasError())
-            throw new InvalidArgumentException("Response hasn't got an error");
+            throw new InvalidArgumentException('Response hasn\'t got an error');
 
         $errors = $this->response['error'];
 
@@ -431,11 +522,11 @@ class Easyrec
      * Send a request to an API endpoint
      * @return array The decoded JSON array
      */
-    private function sendRequest($tenantKey)
+    private function sendRequest()
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
-            throw new InvalidArgumentException("Endpoint name was not set.", 1);
+            throw new InvalidArgumentException('Endpoint name was not set.', 1);
         }
         /*
         // Prepare the request
@@ -449,7 +540,7 @@ class Easyrec
         */
 
         // Use tenantId from request
-        $this->queryParams['tenantid'] = $tenantKey;
+        $this->queryParams['tenantid'] = $this->tenantKey;
 
         $client = new Client([
             'base_uri' => $this->getBaseURL()
