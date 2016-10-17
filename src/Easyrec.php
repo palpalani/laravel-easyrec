@@ -4,6 +4,7 @@ use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 use InvalidArgumentException;
 
 class Easyrec
@@ -581,10 +582,11 @@ class Easyrec
                 }
             }
         } catch (RequestException $e) {
-            echo $e->getRequest() . "\n";
+            $msg = $e->getRequest() . "\n";
             if ($e->hasResponse()) {
-                echo $e->getResponse() . "\n";
+                $msg .= $e->getResponse() . "\n";
             }
+            Log::error('Error connecting EASYREC:'. $msg);
             $result = '';
         }
 
