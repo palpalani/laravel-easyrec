@@ -33,7 +33,8 @@ class LaravelEasyrecServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['laraveleasyrec'] = $this->app->share(function($app) {
+		// $this->app['laraveleasyrec'] = $this->app->share(function($app) {
+		$this->app->singleton('laraveleasyrec', function () {
 			$config = [];
 
 			foreach (['baseURL', 'apiKey', 'tenantID', 'apiVersion'] as $value)
