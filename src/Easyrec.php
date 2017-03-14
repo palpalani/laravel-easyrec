@@ -258,6 +258,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
+        
         return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -274,6 +275,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
+        
         return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -290,6 +292,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
+        
         return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -396,40 +399,50 @@ class Easyrec
     /**
      * @see abstractCommunityEndpoint
      */
-    public function mostViewedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
+    public function mostViewedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
+        $this->tenantKey = $tenantKey;
+        
         return $this->abstractCommunityEndpoint('mostvieweditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractCommunityEndpoint
      */
-    public function mostBoughtItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
+    public function mostBoughtItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
+        $this->tenantKey = $tenantKey;
+        
         return $this->abstractCommunityEndpoint('mostboughtitems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractCommunityEndpoint
      */
-    public function mostRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
+    public function mostRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
+        $this->tenantKey = $tenantKey;
+        
         return $this->abstractCommunityEndpoint('mostrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractCommunityEndpoint
      */
-    public function bestRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
+    public function bestRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
+        $this->tenantKey = $tenantKey;
+        
         return $this->abstractCommunityEndpoint('bestrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
     /**
      * @see abstractCommunityEndpoint
      */
-    public function worstRatedItems($numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
+    public function worstRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
+        $this->tenantKey = $tenantKey;
+        
         return $this->abstractCommunityEndpoint('worstrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
