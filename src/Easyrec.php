@@ -2,6 +2,7 @@
 
 use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
@@ -20,8 +21,8 @@ class Easyrec
     public function __construct($config)
     {
         $this->config = $config;
-        $this->endpoint = null;
-        $this->response = null;
+        //$this->endpoint = null;
+        //$this->response = null;
 
         // Register Guzzle
         // $this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
@@ -595,11 +596,11 @@ class Easyrec
                 }
             }
         } catch (RequestException $e) {
-            $msg = $e->getRequest() . "\n";
+            $msg = Psr7\str($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= $e->getResponse() . "\n";
+                $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC:'. $msg);
+            Log::error('Error connecting EASYREC: '. $msg);
             $result = '';
         }
 
