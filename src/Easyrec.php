@@ -606,6 +606,81 @@ class Easyrec
 
         return $result;
     }
+    
+    /**
+     * Send a request to an API endpoint
+     * @return array The decoded JSON array
+     */
+    private function sendPostRequest()
+    {
+        $endpoint = $this->getEndpoint();
+        if (is_null($endpoint)) {
+            throw new InvalidArgumentException('Endpoint name was not set.', 1);
+        }
+        /*
+        // Prepare the request
+        $request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
+
+        // Send the request
+        $response = $this->httpClient->send($request);
+
+        // Parse JSON and returns an array
+        $this->setResponse($result = $response->json());
+        */
+
+        // Use tenantId from request
+        $this->queryParams['tenantid'] = $this->tenantKey;
+        $this->queryParams['profile'] = $this->profileData;
+
+        $client = new Client([
+            'base_uri' => $this->getBaseURL()
+        ]);
+        try {
+            $response = $client->request('POST', $endpoint, [
+                'json' => $this->queryParams,
+                // 'future' => true
+            ]);
+            $result = json_decode($response->getBody()->getContents());
+
+            // Parse JSON and returns an array
+            $this->setResponse($result);
+
+            // Check if we had an error
+            if ($this->responseHasError()) {
+                $error = $this->retrieveFirstErrorFromResponse();
+
+                throw new EasyrecException($error['@message'], $error['@code']);
+            }
+
+            // Add a key to the array with a list of all items' ID
+            if ($this->doesEndpointListItems()) {
+
+                // Check that we have got the expected array
+                if (!is_null($result) AND array_key_exists('recommendeditems', $result)) {
+                    // Prevent from iterating over an empty array
+                    if (is_array($result['recommendeditems']) AND !empty($result['recommendeditems'])) {
+                        $ids = [];
+                        foreach ($result['recommendeditems'] as $items) {
+                            foreach ($items as $item) {
+                                $ids[] = intval($item['id']);
+                            }
+                        }
+
+                        $result['listids'] = $ids;
+                    }
+                }
+            }
+        } catch (RequestException $e) {
+            $msg = Psr7\str($e->getRequest()) . "\n";
+            if ($e->hasResponse()) {
+                $msg .= Psr7\str($e->getResponse()) . "\n";
+            }
+            Log::error('Error connecting EASYREC: '. $msg);
+            $result = '';
+        }
+
+        return $result;
+    }
 
     /**
      * Set a GET parameter
@@ -618,5 +693,37 @@ class Easyrec
         if (!is_null($value)){
             $this->queryParams[$key] = $value;
         }
+    }
+    
+    public function storeWithProfile(
+        $tenantKey,
+        $itemid,
+        $itemdescription,
+        $itemurl,
+        $profileData = null,
+        $itemimageurl = null,
+        $itemtype = null
+    ){
+        if (is_null($sessionid)) {
+            $sessionid = Session::getId();
+        }
+
+        foreach (['itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'itemtype'] as $param) {
+            $this->setQueryParam($param, $$param);
+        }
+
+        // Set the endpoint name and send the request
+        $this->setEndpoint('storeitemwithprofile');
+
+        $this->tenantKey = $tenantKey;
+
+        $this->setProfileData($profileData);
+
+        return $this->sendPostRequest();
+
+    }
+
+    private function setProfileData($profileData){
+            $this->profileData = json_encode($profileData);
     }
 }
