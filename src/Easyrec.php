@@ -712,7 +712,7 @@ class Easyrec
         }
 
         // Set the endpoint name and send the request.
-        $this->setEndpoint('storeitemwithprofile');
+        $this->setEndpoint('profile/storeitemwithprofile');
 
         $this->tenantKey = $tenantKey;
 
