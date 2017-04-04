@@ -18,6 +18,8 @@ class Easyrec
     private $response;
     private $tenantKey;
 
+    private $profileData;
+
     public function __construct($config)
     {
         $this->config = $config;
@@ -75,11 +77,11 @@ class Easyrec
         $itemtype = null,
         $sessionid = null
     ) {
-        if (is_null($sessionid)){
+        if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
 
-        foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param){
+        foreach (['itemid', 'itemdescription', 'itemurl', 'userid', 'itemimageurl', 'actiontime', 'itemtype', 'sessionid'] as $param) {
             $this->setQueryParam($param, $$param);
         }
 
@@ -195,7 +197,7 @@ class Easyrec
         $itemtype = null,
         $sessionid = null
     ) {
-        if (is_null($sessionid)){
+        if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
 
@@ -259,7 +261,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -276,7 +278,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -293,7 +295,7 @@ class Easyrec
         $withProfile = false
     ) {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
     }
 
@@ -403,7 +405,7 @@ class Easyrec
     public function mostViewedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractCommunityEndpoint('mostvieweditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
@@ -413,7 +415,7 @@ class Easyrec
     public function mostBoughtItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractCommunityEndpoint('mostboughtitems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
@@ -423,7 +425,7 @@ class Easyrec
     public function mostRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractCommunityEndpoint('mostrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
@@ -433,7 +435,7 @@ class Easyrec
     public function bestRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractCommunityEndpoint('bestrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
@@ -443,7 +445,7 @@ class Easyrec
     public function worstRatedItems($tenantKey, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         $this->tenantKey = $tenantKey;
-        
+
         return $this->abstractCommunityEndpoint('worstrateditems', $numberOfResults, $timeRange, $requesteditemtype, $withProfile);
     }
 
@@ -600,13 +602,13 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: '. $msg);
+            Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
         return $result;
     }
-    
+
     /**
      * Send a request to an API endpoint
      * @return array The decoded JSON array
@@ -617,24 +619,15 @@ class Easyrec
         if (is_null($endpoint)) {
             throw new InvalidArgumentException('Endpoint name was not set.', 1);
         }
-        /*
-        // Prepare the request
-        $request = $this->httpClient->createRequest('GET', $endpoint, ['query' => $this->queryParams]);
 
-        // Send the request
-        $response = $this->httpClient->send($request);
-
-        // Parse JSON and returns an array
-        $this->setResponse($result = $response->json());
-        */
-
-        // Use tenantId from request
+        // Use tenantId from request.
         $this->queryParams['tenantid'] = $this->tenantKey;
         $this->queryParams['profile'] = $this->profileData;
 
         $client = new Client([
             'base_uri' => $this->getBaseURL()
         ]);
+
         try {
             $response = $client->request('POST', $endpoint, [
                 'json' => $this->queryParams,
@@ -642,17 +635,17 @@ class Easyrec
             ]);
             $result = json_decode($response->getBody()->getContents());
 
-            // Parse JSON and returns an array
+            // Parse JSON and returns an array.
             $this->setResponse($result);
 
-            // Check if we had an error
+            // Check if we had an error.
             if ($this->responseHasError()) {
                 $error = $this->retrieveFirstErrorFromResponse();
 
                 throw new EasyrecException($error['@message'], $error['@code']);
             }
 
-            // Add a key to the array with a list of all items' ID
+            // Add a key to the array with a list of all items' ID.
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
@@ -675,7 +668,7 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: '. $msg);
+            Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
@@ -689,12 +682,22 @@ class Easyrec
      */
     private function setQueryParam($key, $value)
     {
-        // Do not set value if it was null because it was optional
-        if (!is_null($value)){
+        // Do not set value if it was null because it was optional.
+        if (!is_null($value)) {
             $this->queryParams[$key] = $value;
         }
     }
-    
+
+    /**
+     * @param $tenantKey
+     * @param $itemid
+     * @param $itemdescription
+     * @param $itemurl
+     * @param null $profileData
+     * @param null $itemimageurl
+     * @param null $itemtype
+     * @return array
+     */
     public function storeWithProfile(
         $tenantKey,
         $itemid,
@@ -703,16 +706,12 @@ class Easyrec
         $profileData = null,
         $itemimageurl = null,
         $itemtype = null
-    ){
-        if (is_null($sessionid)) {
-            $sessionid = Session::getId();
-        }
-
+    ) {
         foreach (['itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'itemtype'] as $param) {
             $this->setQueryParam($param, $$param);
         }
 
-        // Set the endpoint name and send the request
+        // Set the endpoint name and send the request.
         $this->setEndpoint('storeitemwithprofile');
 
         $this->tenantKey = $tenantKey;
@@ -723,7 +722,11 @@ class Easyrec
 
     }
 
-    private function setProfileData($profileData){
-            $this->profileData = json_encode($profileData);
+    /**
+     * @param $profileData
+     */
+    private function setProfileData($profileData)
+    {
+        $this->profileData = json_encode($profileData);
     }
 }
