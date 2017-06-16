@@ -29,5 +29,15 @@
 			"Antoineaugusti\\Tests\\LaravelEasyrec\\": "tests/"
 		}
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "stable",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Antoineaugusti\\LaravelEasyrec\\LaravelEasyrecServiceProvider"
+            ],
+            "aliases": {
+                "Easyrec": "Antoineaugusti\\LaravelEasyrec\\Facades\\LaravelEasyrec"
+            }
+        }
+    }
 }
