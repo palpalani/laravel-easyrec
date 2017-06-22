@@ -337,6 +337,23 @@ class Easyrec
 
         return $this->sendRequest();
     }
+        
+    /**
+    * @see abstractRecommendationEndpoint
+    */
+    public function relatedItems(
+        $tenantKey,
+        $itemid,
+        $userid = null,
+        $numberOfResults = 10,
+        $itemtype = null,
+        $requesteditemtype = null,
+        $withProfile = false
+    ) {
+        $this->tenantKey = $tenantKey;
+
+        return $this->abstractRecommendationEndpoint('relateditems', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
+    }
 
     /**
      * Returns the last actions performed by a user
@@ -502,7 +519,8 @@ class Easyrec
             'mostrateditems',
             'bestrateditems',
             'worstrateditems',
-            'actionhistoryforuser'
+            'actionhistoryforuser',
+            'relateditems'
         ]);
     }
 
