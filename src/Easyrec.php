@@ -12,10 +12,15 @@ class Easyrec
 {
 
     private $config;
+    
     private $endpoint;
+    
     // private $httpClient;
+    
     private $queryParams;
+    
     private $response;
+    
     private $tenantKey;
 
     private $profileData;
@@ -617,7 +622,7 @@ class Easyrec
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
-                                $ids[] = intval($item['id']);
+                                $ids[] = (int) $item['id'];
                             }
                         }
 
@@ -683,7 +688,7 @@ class Easyrec
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
-                                $ids[] = intval($item['id']);
+                                $ids[] = (int) $item['id'];
                             }
                         }
 
