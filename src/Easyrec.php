@@ -28,8 +28,8 @@ class Easyrec
     public function __construct($config)
     {
         $this->config = $config;
-        //$this->endpoint = null;
-        //$this->response = null;
+        $this->endpoint = null;
+        $this->response = null;
 
         // Register Guzzle
         // $this->setHttpClient(new HTTPClient(['base_url' => $this->getBaseURL()]));
@@ -638,6 +638,12 @@ class Easyrec
             Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
+        
+        // Reset API key and tenantID. Which ensures other params are removed.
+        $this->queryParams = [
+            'apikey' => $this->tenantKey,
+            'tenantid' => $this->config['tenantID'],
+        ];
 
         return $result;
     }
@@ -704,6 +710,12 @@ class Easyrec
             Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
+        
+        // Reset API key and tenantID. Which ensures other params are removed.
+        $this->queryParams = [
+            'apikey' => $this->tenantKey,
+            'tenantid' => $this->config['tenantID'],
+        ];
 
         return $result;
     }
@@ -750,6 +762,16 @@ class Easyrec
         $this->tenantKey = $tenantKey;
 
         $this->setProfileData($profileData);
+        
+        // Fix user id
+        if(isset($this->queryParams['userid'])) {
+            unset($this->queryParams['userid']);
+        }
+
+        // Fix session id
+        if(isset($this->queryParams['sessionid'])) {
+            unset($this->queryParams['sessionid']);
+        }
 
         return $this->sendPostRequest();
 
