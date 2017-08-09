@@ -785,4 +785,77 @@ class Easyrec
     {
         $this->profileData = json_encode($profileData);
     }
+    
+    /**
+     * @param $tenantKey
+     * @param $itemid
+     * @param null $itemtype
+     * @return mixed|string
+     */
+    public function deleteItem(
+        $tenantKey,
+        $itemid,
+        $itemtype = null
+    ) {
+        $this->tenantKey = $tenantKey;
+
+        foreach (['itemid', 'itemtype'] as $param) {
+            $this->setQueryParam($param, $$param);
+        }
+
+        // Set the endpoint name and send the request.
+        $this->setEndpoint('profile/delete');
+
+        return $this->sendDeleteRequest();
+    }
+
+    /**
+     * @return mixed|string
+     * @throws EasyrecException
+     */
+    private function sendDeleteRequest()
+    {
+        $endpoint = $this->getEndpoint();
+        if (is_null($endpoint)) {
+            throw new InvalidArgumentException('Endpoint name was not set.', 1);
+        }
+
+        // Use tenantId from request
+        $this->queryParams['tenantid'] = $this->tenantKey;
+
+        $client = new Client([
+            'base_uri' => $this->getBaseURL()
+        ]);
+        try {
+            $response = $client->request('DELETE', $endpoint, [
+                'query' => $this->queryParams
+            ]);
+            $result = json_decode($response->getBody()->getContents());
+
+            // Parse JSON and returns an array.
+            $this->setResponse($result);
+
+            // Check if we had an error.
+            if ($this->responseHasError()) {
+                $error = $this->retrieveFirstErrorFromResponse();
+
+                throw new EasyrecException($error['@message'], $error['@code']);
+            }
+        } catch (RequestException $e) {
+            $msg = Psr7\str($e->getRequest()) . "\n";
+            if ($e->hasResponse()) {
+                $msg .= Psr7\str($e->getResponse()) . "\n";
+            }
+            Log::error('Error connecting EASYREC: ' . $msg);
+            $result = '';
+        }
+
+        // Reset API key and tenantID. Which ensures other params are removed.
+        $this->queryParams = [
+            'apikey' => $this->tenantKey,
+            'tenantid' => $this->config['tenantID'],
+        ];
+
+        return $result;
+    }
 }
