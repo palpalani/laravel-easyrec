@@ -373,7 +373,8 @@ class Easyrec
         $userid, 
         $numberOfResults = 10, 
         $requesteditemtype = null, 
-        $actiontype = null
+        $actiontype = null,
+        $withProfile = 'true'
     ) {
         $this->tenantKey = $tenantKey;
         
@@ -384,7 +385,7 @@ class Easyrec
         // Can't currently retrieve more than 15 results
         $numberOfResults = min($numberOfResults, 15);
 
-        foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype'] as $param)
+        foreach (['userid', 'numberOfResults', 'requesteditemtype', 'actiontype', 'withProfile'] as $param)
             $this->setQueryParam($param, $$param);
 
         // Set the endpoint name and send the request
