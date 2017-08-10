@@ -642,8 +642,8 @@ class Easyrec
         
         // Reset API key and tenantID. Which ensures other params are removed.
         $this->queryParams = [
-            'apikey' => $this->tenantKey,
-            'tenantid' => $this->config['tenantID'],
+            'apikey' => $this->config['apiKey'],
+            'tenantid' => $this->tenantKey,
         ];
 
         return $result;
@@ -714,8 +714,8 @@ class Easyrec
         
         // Reset API key and tenantID. Which ensures other params are removed.
         $this->queryParams = [
-            'apikey' => $this->tenantKey,
-            'tenantid' => $this->config['tenantID'],
+            'apikey' => $this->config['apiKey'],
+            'tenantid' => $this->tenantKey,
         ];
 
         return $result;
@@ -852,8 +852,8 @@ class Easyrec
 
         // Reset API key and tenantID. Which ensures other params are removed.
         $this->queryParams = [
-            'apikey' => $this->tenantKey,
-            'tenantid' => $this->config['tenantID'],
+            'apikey' => $this->config['apiKey'],
+            'tenantid' => $this->tenantKey,
         ];
 
         return $result;
