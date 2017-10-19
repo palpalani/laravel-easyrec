@@ -653,7 +653,7 @@ class Easyrec
      * Send a request to an API endpoint
      * @return array The decoded JSON array
      */
-    private function sendPostRequest()
+    private function sendPostRequest($jsonParam = true)
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
@@ -669,10 +669,14 @@ class Easyrec
         ]);
 
         try {
-            $response = $client->request('POST', $endpoint, [
-                'json' => $this->queryParams,
-                // 'future' => true
-            ]);
+            $json = [];
+            if($jsonParam) {
+                $json = [
+                    'json' => $this->queryParams,
+                    // 'future' => true
+                ];
+            }
+            $response = $client->request('POST', $endpoint, $json);
             $result = json_decode($response->getBody()->getContents());
 
             // Parse JSON and returns an array.
@@ -873,8 +877,8 @@ class Easyrec
         }
 
         // Set the endpoint name and send the request.
-        $this->setEndpoint('profile/setitemactive');
+        $this->setEndpoint('setitemactive');
 
-        return $this->sendPostRequest();
+        return $this->sendPostRequest(false);
     }
 }
