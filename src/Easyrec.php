@@ -858,4 +858,23 @@ class Easyrec
 
         return $result;
     }
+    
+    /**
+    * @param $tenantKey
+    * @param $itemid
+    * @return mixed|string
+    */
+    public function setItemStatus($tenantKey, $itemid, $active) 
+    {
+        $this->tenantKey = $tenantKey;
+
+        foreach (['itemid', 'active'] as $param) {
+            $this->setQueryParam($param, $$param);
+        }
+
+        // Set the endpoint name and send the request.
+        $this->setEndpoint('profile/setitemactive');
+
+        return $this->sendPostRequest();
+    }
 }
