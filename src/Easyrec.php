@@ -52,6 +52,11 @@ class Easyrec
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/json/';
     }
+    
+    public function getBaseApiURL()
+    {
+        return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/';
+    }
 
     /*
     * ACTIONS
@@ -573,7 +578,7 @@ class Easyrec
      * Send a request to an API endpoint
      * @return array The decoded JSON array
      */
-    private function sendRequest()
+    private function sendRequest($apiOnly = false)
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
@@ -593,9 +598,16 @@ class Easyrec
         // Use tenantId from request
         $this->queryParams['tenantid'] = $this->tenantKey;
 
-        $client = new Client([
-            'base_uri' => $this->getBaseURL()
-        ]);
+        if($apiOnly) {
+            $client = new Client([
+                'base_uri' => $this->getBaseApiURL()
+            ]);
+        } else {
+            $client = new Client([
+                'base_uri' => $this->getBaseURL()
+            ]);
+        }
+        
         try {
             $response = $client->request('GET', $endpoint, [
                 'query' => $this->queryParams,
@@ -653,7 +665,7 @@ class Easyrec
      * Send a request to an API endpoint
      * @return array The decoded JSON array
      */
-    private function sendPostRequest($jsonParam = true)
+    private function sendPostRequest()
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
@@ -669,14 +681,10 @@ class Easyrec
         ]);
 
         try {
-            $json = [];
-            if($jsonParam) {
-                $json = [
+            $response = $client->request('POST', $endpoint, [
                     'json' => $this->queryParams,
                     // 'future' => true
-                ];
-            }
-            $response = $client->request('POST', $endpoint, $json);
+                ]);
             $result = json_decode($response->getBody()->getContents());
 
             // Parse JSON and returns an array.
@@ -879,6 +887,6 @@ class Easyrec
         // Set the endpoint name and send the request.
         $this->setEndpoint('setitemactive');
 
-        return $this->sendPostRequest(false);
+        return $this->sendRequest(true);
     }
 }
