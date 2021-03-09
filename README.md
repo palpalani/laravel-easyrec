@@ -1,10 +1,12 @@
 Laravel EasyRec
 ===============
 
-
-[![Build Status](https://img.shields.io/travis/AntoineAugusti/laravel-easyrec/master.svg?style=flat)](https://travis-ci.org/AntoineAugusti/laravel-easyrec)
-[![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/AntoineAugusti/laravel-easyrec.svg?style=flat)](https://github.com/AntoineAugusti/laravel-easyrec/releases)
+[![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)](LICENSE.md)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/palpalani/laravel-easyrec.svg?style=flat-square)](https://packagist.org/packages/palpalani/laravel-easyrec)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/palpalani/laravel-easyrec/run-tests?label=tests)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3ATests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/palpalani/laravel-easyrec/Check%20&%20fix%20styling?label=code%20style)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![Total Downloads](https://img.shields.io/packagist/dt/palpalani/laravel-easyrec.svg?style=flat-square)](https://packagist.org/packages/palpalani/laravel-easyrec)
 
 ## What is EasyRec?
 
@@ -685,7 +687,7 @@ If you want to keep the order of the items, you can use this code if you are usi
 ```php
 $ids = $result['listids']:
 YourModel::whereIn('id', $ids)
-	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->orderBy(\DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
 	->get();
 ```
 
@@ -739,7 +741,7 @@ If you want to keep the order of the items, you can use this code if you are usi
 ```php
 $ids = $result['listids']:
 YourModel::whereIn('id', $ids)
-	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->orderBy(\DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
 	->get();
 ```
 
@@ -793,7 +795,7 @@ If you want to keep the order of the items, you can use this code if you are usi
 ```php
 $ids = $result['listids']:
 YourModel::whereIn('id', $ids)
-	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->orderBy(\DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
 	->get();
 ```
 
@@ -847,7 +849,7 @@ If you want to keep the order of the items, you can use this code if you are usi
 ```php
 $ids = $result['listids']:
 YourModel::whereIn('id', $ids)
-	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->orderBy(\DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
 	->get();
 ```
 
@@ -901,6 +903,33 @@ If you want to keep the order of the items, you can use this code if you are usi
 ```php
 $ids = $result['listids']:
 YourModel::whereIn('id', $ids)
-	->orderBy(DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
+	->orderBy(\DB::raw('FIELD(`id`, '.implode(',', $ids).')'))
 	->get();
 ```
+
+## Testing
+
+```bash
+composer test
+```
+
+## Changelog
+
+Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+
+## Contributing
+
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+
+## Security Vulnerabilities
+
+Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/palpalani/laravel-easyrec/tags).
+
+## Credits
+
+- [palPalani](https://github.com/palPalani)
+- [All Contributors](../../contributors)
