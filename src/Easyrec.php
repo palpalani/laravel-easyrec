@@ -11,15 +11,15 @@ use InvalidArgumentException;
 class Easyrec
 {
     private $config;
-    
+
     private $endpoint;
-    
+
     // private $httpClient;
-    
+
     private $queryParams;
-    
+
     private $response;
-    
+
     private $tenantKey;
 
     private $profileData;
@@ -51,7 +51,7 @@ class Easyrec
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/json/';
     }
-    
+
     public function getBaseApiURL()
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/';
@@ -64,15 +64,15 @@ class Easyrec
 
     /**
      * This action should be raised if a user views an item.
-     * @param  string $tenantKey Tenant Key
-     * @param  string $itemid An item ID to identify an item on your website. Eg: "POST42"
-     * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
-     * @param  string $itemurl An item URL that links to the item page. Please give an absolute path.
-     * @param  string $userid A user ID.
-     * @param  string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
-     * @param  string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-     * @param  string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
-     * @param  string $sessionid A session ID of a user.
+     * @param string $tenantKey Tenant Key
+     * @param string $itemid An item ID to identify an item on your website. Eg: "POST42"
+     * @param string $itemdescription An item description that is displayed when showing recommendations on your website.
+     * @param string $itemurl An item URL that links to the item page. Please give an absolute path.
+     * @param string $userid A user ID.
+     * @param string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
+     * @param string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+     * @param string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+     * @param string $sessionid A session ID of a user.
      * @return array The decoded JSON response
      */
     public function view(
@@ -85,7 +85,8 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    ) {
+    )
+    {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -115,7 +116,8 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    ) {
+    )
+    {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -134,16 +136,16 @@ class Easyrec
 
     /**
      * This action should be raised if a user rates an item.
-     * @param  string $tenantKey Tenant Key
-     * @param  string $itemid An item ID to identify an item on your website. Eg: "POST42"
-     * @param  int $ratingvalue The rating value of the item. Must be an integer in the range from 1 to 10.
-     * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
-     * @param  string $itemurl An item URL that links to the item page. Please give an absolute path.
-     * @param  string $userid A user ID.
-     * @param  string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
-     * @param  string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-     * @param  string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
-     * @param  string $sessionid A session ID of a user.
+     * @param string $tenantKey Tenant Key
+     * @param string $itemid An item ID to identify an item on your website. Eg: "POST42"
+     * @param int $ratingvalue The rating value of the item. Must be an integer in the range from 1 to 10.
+     * @param string $itemdescription An item description that is displayed when showing recommendations on your website.
+     * @param string $itemurl An item URL that links to the item page. Please give an absolute path.
+     * @param string $userid A user ID.
+     * @param string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
+     * @param string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+     * @param string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+     * @param string $sessionid A session ID of a user.
      * @return array The decoded JSON response
      */
     public function rate(
@@ -157,9 +159,10 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    ) {
+    )
+    {
         // Check that the $ratingvalue as got the expected format
-        if (! is_numeric($ratingvalue) or $ratingvalue > 10 or $ratingvalue < 1) {
+        if (!is_numeric($ratingvalue) or $ratingvalue > 10 or $ratingvalue < 1) {
             throw new InvalidArgumentException('The rating value should be between 1 and 10.', 1);
         }
 
@@ -181,17 +184,17 @@ class Easyrec
 
     /**
      * This action can be used to send generic user actions.
-     * @param  string $tenantKey Tenant Key
-     * @param  string $itemid An item ID to identify an item on your website. Eg: "POST42"
-     * @param  string $itemdescription An item description that is displayed when showing recommendations on your website.
-     * @param  string $itemurl An item URL that links to the item page. Please give an absolute path.
-     * @param  string $actiontype A required action type you want to use to send.
-     * @param  string $actionvalue If your action type uses action values this parameter is required.
-     * @param  string $userid A user ID.
-     * @param  string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
-     * @param  string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
-     * @param  string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
-     * @param  string $sessionid A session ID of a user.
+     * @param string $tenantKey Tenant Key
+     * @param string $itemid An item ID to identify an item on your website. Eg: "POST42"
+     * @param string $itemdescription An item description that is displayed when showing recommendations on your website.
+     * @param string $itemurl An item URL that links to the item page. Please give an absolute path.
+     * @param string $actiontype A required action type you want to use to send.
+     * @param string $actionvalue If your action type uses action values this parameter is required.
+     * @param string $userid A user ID.
+     * @param string $itemimageurl An optional item image URL that links to an imagine of the item. Please give an absolute path.
+     * @param string $actiontime An action time parameter that overwrites the current timestamp of the action. The parameter has the format "dd_MM_yyyy_HH_mm_ss".
+     * @param string $itemtype An item type that denotes the type of the item (`IMAGE`, `BOOK` etc.). If not supplied, the default value `ITEM` will be used.
+     * @param string $sessionid A session ID of a user.
      * @return array The decoded JSON response
      */
     public function sendAction(
@@ -206,7 +209,8 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    ) {
+    )
+    {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -230,20 +234,20 @@ class Easyrec
 
     /**
      * General method used to hit a recommendation endpoint of the API
-     * @param  string $endpoint The name of the API endpoint
-     * @param  string $itemid A required item ID to identify an item on your website. (e.g. "ID001")
-     * @param  mixed $userid If this parameter is provided items viewed by this user are suppressed.
-     * @param  int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
-     * @param  string $itemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
-     * @param  string $requesteditemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
-     * @param  bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
-     * @throws \InvalidArgumentException if the number of results is not a number or is negative
+     * @param string $endpoint The name of the API endpoint
+     * @param string $itemid A required item ID to identify an item on your website. (e.g. "ID001")
+     * @param mixed $userid If this parameter is provided items viewed by this user are suppressed.
+     * @param int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
+     * @param string $itemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
+     * @param string $requesteditemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
+     * @param bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
      * @return array The decoded JSON response
+     * @throws \InvalidArgumentException if the number of results is not a number or is negative
      */
     private function abstractRecommendationEndpoint($endpoint, $itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -271,7 +275,8 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -288,7 +293,8 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -305,7 +311,8 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -313,12 +320,12 @@ class Easyrec
 
     /**
      * Returns recommendation for a given user ID
-     * @param  string $itemid A required item ID to identify an item on your website. (e.g. "ID001")
-     * @param  mixed $userid A required anonymised id of a user. (e.g. "24EH1723322222A3")
-     * @param  int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
-     * @param  string $requesteditemtype An optional type of an item (e.g. IMAGE, VIDEO, BOOK, etc.) to filter the returned items.If not supplied items of all item types are returned.
-     * @param  string $actiontype Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: VIEW, RATE, BUY.
-     * @param  bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
+     * @param string $itemid A required item ID to identify an item on your website. (e.g. "ID001")
+     * @param mixed $userid A required anonymised id of a user. (e.g. "24EH1723322222A3")
+     * @param int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
+     * @param string $requesteditemtype An optional type of an item (e.g. IMAGE, VIDEO, BOOK, etc.) to filter the returned items.If not supplied items of all item types are returned.
+     * @param string $actiontype Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: VIEW, RATE, BUY.
+     * @param bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
      * @return array The decoded JSON response
      */
     public function recommendationsForUser(
@@ -329,11 +336,12 @@ class Easyrec
         $requesteditemtype = null,
         $actiontype = 'VIEW',
         $withProfile = false
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -349,10 +357,10 @@ class Easyrec
 
         return $this->sendRequest();
     }
-        
+
     /**
-    * @see abstractRecommendationEndpoint
-    */
+     * @see abstractRecommendationEndpoint
+     */
     public function relatedItems(
         $tenantKey,
         $itemid,
@@ -361,7 +369,8 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('relateditems', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -369,10 +378,10 @@ class Easyrec
 
     /**
      * Returns the last actions performed by a user
-     * @param  mixed $userid A required anonymised id of a user. (e.g. "24EH1723322222A3")
-     * @param  int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
-     * @param  string $requesteditemtype An optional type of an item (e.g. IMAGE, VIDEO, BOOK, etc.) to filter the returned items.If not supplied items of all item types are returned.
-     * @param  string $actiontype Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: VIEW, RATE, BUY.
+     * @param mixed $userid A required anonymised id of a user. (e.g. "24EH1723322222A3")
+     * @param int $numberOfResults An optional parameter to determine the number of results returned. Should be between 1 and 15.
+     * @param string $requesteditemtype An optional type of an item (e.g. IMAGE, VIDEO, BOOK, etc.) to filter the returned items.If not supplied items of all item types are returned.
+     * @param string $actiontype Allows to define which actions of a user are considered when creating the personalized recommendation. Valid values are: VIEW, RATE, BUY.
      * @return array The decoded JSON response
      */
     public function actionHistoryForUser(
@@ -382,11 +391,12 @@ class Easyrec
         $requesteditemtype = null,
         $actiontype = null,
         $withProfile = 'true'
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
-        
+
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -410,19 +420,19 @@ class Easyrec
 
     /**
      * Call a community endpoint of the API
-     * @param  string $endpoint The name of the API endpoint
-     * @param  int $numberOfResults An optional parameter to determine the number of results returned. Must be between 1 and 50.
-     * @param  string $timeRange An optional parameter to determine the time range. This parameter may be set to one of the following values: DAY, WEEK, MONTH, ALL.
-     * @param  string $requesteditemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
-     * @param  bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
-     * @throws \InvalidArgumentException If the numberOfResults is negative or is not a number
-     * @throws \InvalidArgumentException If timeRange is not in the supported values: DAY, WEEK, MONTH, ALL
+     * @param string $endpoint The name of the API endpoint
+     * @param int $numberOfResults An optional parameter to determine the number of results returned. Must be between 1 and 50.
+     * @param string $timeRange An optional parameter to determine the time range. This parameter may be set to one of the following values: DAY, WEEK, MONTH, ALL.
+     * @param string $requesteditemtype An optional item type that denotes the type of the item (e.g. IMAGE, VIDEO, BOOK, etc.). If not supplied the default value ITEM will be used.
+     * @param bool $withProfile If this parameter is set to true the result contains an additional element 'profileData' with the item profile.
      * @return array The JSON decoded response
+     * @throws \InvalidArgumentException If timeRange is not in the supported values: DAY, WEEK, MONTH, ALL
+     * @throws \InvalidArgumentException If the numberOfResults is negative or is not a number
      */
     private function abstractCommunityEndpoint($endpoint, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -430,7 +440,7 @@ class Easyrec
         $numberOfResults = min($numberOfResults, 50);
 
         // Check that $timeRange has got the expected format
-        if (! in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL'])) {
+        if (!in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL'])) {
             throw new InvalidArgumentException('Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.', 1);
         }
 
@@ -557,7 +567,7 @@ class Easyrec
      */
     public function responseHasError()
     {
-        return (! is_null($this->response) and array_key_exists('error', $this->response));
+        return (!is_null($this->response) and array_key_exists('error', $this->response));
     }
 
     /**
@@ -566,7 +576,7 @@ class Easyrec
      */
     public function retrieveFirstErrorFromResponse()
     {
-        if (! $this->responseHasError()) {
+        if (!$this->responseHasError()) {
             throw new InvalidArgumentException('Response hasn\'t got an error');
         }
 
@@ -616,7 +626,7 @@ class Easyrec
                 'base_uri' => $this->getBaseURL(),
             ]);
         }
-        
+
         try {
             $response = $client->request('GET', $endpoint, [
                 'query' => $this->queryParams,
@@ -638,13 +648,13 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (!is_null($result) and array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) and !empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
-                                $ids[] = (int) $item['id'];
+                                $ids[] = (int)$item['id'];
                             }
                         }
 
@@ -660,7 +670,7 @@ class Easyrec
             Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
-        
+
         // Reset API key and tenantID. Which ensures other params are removed.
         $this->queryParams = [
             'apikey' => $this->config['apiKey'],
@@ -691,9 +701,9 @@ class Easyrec
 
         try {
             $response = $client->request('POST', $endpoint, [
-                    'json' => $this->queryParams,
-                    // 'future' => true
-                ]);
+                'json' => $this->queryParams,
+                // 'future' => true
+            ]);
             $result = json_decode($response->getBody()->getContents());
 
             // Parse JSON and returns an array.
@@ -710,13 +720,13 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (!is_null($result) and array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) and !empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
-                                $ids[] = (int) $item['id'];
+                                $ids[] = (int)$item['id'];
                             }
                         }
 
@@ -732,7 +742,7 @@ class Easyrec
             Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
-        
+
         // Reset API key and tenantID. Which ensures other params are removed.
         $this->queryParams = [
             'apikey' => $this->config['apiKey'],
@@ -750,7 +760,7 @@ class Easyrec
     private function setQueryParam($key, $value)
     {
         // Do not set value if it was null because it was optional.
-        if (! is_null($value)) {
+        if (!is_null($value)) {
             $this->queryParams[$key] = $value;
         }
     }
@@ -773,7 +783,8 @@ class Easyrec
         $profileData = null,
         $itemimageurl = null,
         $itemtype = null
-    ) {
+    )
+    {
         foreach (['itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'itemtype'] as $param) {
             $this->setQueryParam($param, $$param);
         }
@@ -784,7 +795,7 @@ class Easyrec
         $this->tenantKey = $tenantKey;
 
         $this->setProfileData($profileData);
-        
+
         // Fix user id
         if (isset($this->queryParams['userid'])) {
             unset($this->queryParams['userid']);
@@ -805,7 +816,7 @@ class Easyrec
     {
         $this->profileData = json_encode($profileData);
     }
-    
+
     /**
      * @param $tenantKey
      * @param $itemid
@@ -816,7 +827,8 @@ class Easyrec
         $tenantKey,
         $itemid,
         $itemtype = null
-    ) {
+    )
+    {
         $this->tenantKey = $tenantKey;
 
         foreach (['itemid', 'itemtype'] as $param) {
@@ -879,12 +891,12 @@ class Easyrec
 
         return $result;
     }
-    
+
     /**
-    * @param $tenantKey
-    * @param $itemid
-    * @return mixed|string
-    */
+     * @param $tenantKey
+     * @param $itemid
+     * @return mixed|string
+     */
     public function setItemStatus($tenantKey, $itemid, $active)
     {
         $this->tenantKey = $tenantKey;

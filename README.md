@@ -933,3 +933,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 - [palPalani](https://github.com/palPalani)
 - [All Contributors](../../contributors)
+
+## License
+
+The Apache License. Please see [License File](LICENSE.md) for more information.
