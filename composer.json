@@ -1,7 +1,14 @@
 {
 	"name": "antoineaugusti/laravel-easyrec",
 	"description": "A Laravel wrapper for the recommendation system Easyrec",
-	"keywords": ["laravel", "recommendation", "recommendation system", "easyrec", "suggestions", "suggestion"],
+	"keywords": [
+		"laravel",
+		"recommendation",
+		"recommendation system",
+		"easyrec",
+		"suggestions",
+		"suggestion"
+	],
 	"license": "Apache-2.0",
 	"authors": [
 		{
@@ -10,7 +17,7 @@
 		}
 	],
 	"require": {
-		"php": ">=5.4.0",
+		"php": "^7.2|^8.0",
 		"illuminate/support": "~5.2|^6.0|^7.0|^8.0",
 		"illuminate/session": "~5.2|^6.0|^7.0|^8.0",
 		"guzzlehttp/guzzle": "^6.2|^7.0"
