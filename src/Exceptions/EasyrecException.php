@@ -2,6 +2,6 @@
 
 use Exception;
 
-class EasyrecException extends Exception {
-
+class EasyrecException extends Exception
+{
 }
