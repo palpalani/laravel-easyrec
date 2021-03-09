@@ -4,7 +4,6 @@ use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 
@@ -47,11 +46,17 @@ class Easyrec
     }
     */
 
+    /**
+     * @return string
+     */
     public function getBaseURL()
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/json/';
     }
 
+    /**
+     * @return string
+     */
     public function getBaseApiURL()
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/';
@@ -159,7 +164,7 @@ class Easyrec
         $sessionid = null
     ) {
         // Check that the $ratingvalue as got the expected format
-        if (! is_numeric($ratingvalue) or $ratingvalue > 10 or $ratingvalue < 1) {
+        if ($ratingvalue > 10 || ! is_numeric($ratingvalue) || $ratingvalue < 1) {
             throw new InvalidArgumentException('The rating value should be between 1 and 10.', 1);
         }
 
@@ -243,7 +248,7 @@ class Easyrec
     private function abstractRecommendationEndpoint($endpoint, $itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) || $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -333,7 +338,7 @@ class Easyrec
         $this->tenantKey = $tenantKey;
 
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) || $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -386,7 +391,7 @@ class Easyrec
         $this->tenantKey = $tenantKey;
 
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) || $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -422,7 +427,7 @@ class Easyrec
     private function abstractCommunityEndpoint($endpoint, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) || $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -557,7 +562,7 @@ class Easyrec
      */
     public function responseHasError()
     {
-        return (! is_null($this->response) and array_key_exists('error', $this->response));
+        return (! is_null($this->response) && array_key_exists('error', $this->response));
     }
 
     /**
@@ -638,9 +643,9 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (! is_null($result) && array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) && ! empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
@@ -657,7 +662,7 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: ' . $msg);
+            //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
@@ -710,9 +715,9 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (! is_null($result) && array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) && ! empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
@@ -729,7 +734,7 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: ' . $msg);
+            //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
@@ -812,11 +817,7 @@ class Easyrec
      * @param null $itemtype
      * @return mixed|string
      */
-    public function deleteItem(
-        $tenantKey,
-        $itemid,
-        $itemtype = null
-    ) {
+    public function deleteItem($tenantKey, $itemid, $itemtype = null) {
         $this->tenantKey = $tenantKey;
 
         foreach (['itemid', 'itemtype'] as $param) {
@@ -867,7 +868,7 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Psr7\str($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: ' . $msg);
+            //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
