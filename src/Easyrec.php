@@ -85,8 +85,7 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    )
-    {
+    ) {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -116,8 +115,7 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    )
-    {
+    ) {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -159,10 +157,9 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    )
-    {
+    ) {
         // Check that the $ratingvalue as got the expected format
-        if (!is_numeric($ratingvalue) or $ratingvalue > 10 or $ratingvalue < 1) {
+        if (! is_numeric($ratingvalue) or $ratingvalue > 10 or $ratingvalue < 1) {
             throw new InvalidArgumentException('The rating value should be between 1 and 10.', 1);
         }
 
@@ -209,8 +206,7 @@ class Easyrec
         $actiontime = null,
         $itemtype = null,
         $sessionid = null
-    )
-    {
+    ) {
         if (is_null($sessionid)) {
             $sessionid = Session::getId();
         }
@@ -247,7 +243,7 @@ class Easyrec
     private function abstractRecommendationEndpoint($endpoint, $itemid, $userid = null, $numberOfResults = 10, $itemtype = null, $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -275,8 +271,7 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('otherusersalsoviewed', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -293,8 +288,7 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('otherusersalsobought', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -311,8 +305,7 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('itemsratedgoodbyotherusers', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -336,12 +329,11 @@ class Easyrec
         $requesteditemtype = null,
         $actiontype = 'VIEW',
         $withProfile = false
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         // Check that $numberOfResults has got the expected format
-        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -369,8 +361,7 @@ class Easyrec
         $itemtype = null,
         $requesteditemtype = null,
         $withProfile = false
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         return $this->abstractRecommendationEndpoint('relateditems', $itemid, $userid, $numberOfResults, $itemtype, $requesteditemtype, $withProfile);
@@ -391,12 +382,11 @@ class Easyrec
         $requesteditemtype = null,
         $actiontype = null,
         $withProfile = 'true'
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         // Check that $numberOfResults has got the expected format
-        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -432,7 +422,7 @@ class Easyrec
     private function abstractCommunityEndpoint($endpoint, $numberOfResults = 30, $timeRange = 'ALL', $requesteditemtype = null, $withProfile = false)
     {
         // Check that $numberOfResults has got the expected format
-        if (!is_numeric($numberOfResults) or $numberOfResults < 0) {
+        if (! is_numeric($numberOfResults) or $numberOfResults < 0) {
             throw new InvalidArgumentException('The number of results should be at least 1.', 1);
         }
 
@@ -440,7 +430,7 @@ class Easyrec
         $numberOfResults = min($numberOfResults, 50);
 
         // Check that $timeRange has got the expected format
-        if (!in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL'])) {
+        if (! in_array($timeRange, ['DAY', 'WEEK', 'MONTH', 'ALL'])) {
             throw new InvalidArgumentException('Invalid value for timeRange. Allowed values are DAY, WEEK, MONTH, ALL.', 1);
         }
 
@@ -567,7 +557,7 @@ class Easyrec
      */
     public function responseHasError()
     {
-        return (!is_null($this->response) and array_key_exists('error', $this->response));
+        return (! is_null($this->response) and array_key_exists('error', $this->response));
     }
 
     /**
@@ -576,7 +566,7 @@ class Easyrec
      */
     public function retrieveFirstErrorFromResponse()
     {
-        if (!$this->responseHasError()) {
+        if (! $this->responseHasError()) {
             throw new InvalidArgumentException('Response hasn\'t got an error');
         }
 
@@ -648,9 +638,9 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (!is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and !empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
@@ -720,9 +710,9 @@ class Easyrec
             if ($this->doesEndpointListItems()) {
 
                 // Check that we have got the expected array
-                if (!is_null($result) and array_key_exists('recommendeditems', $result)) {
+                if (! is_null($result) and array_key_exists('recommendeditems', $result)) {
                     // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) and !empty($result['recommendeditems'])) {
+                    if (is_array($result['recommendeditems']) and ! empty($result['recommendeditems'])) {
                         $ids = [];
                         foreach ($result['recommendeditems'] as $items) {
                             foreach ($items as $item) {
@@ -760,7 +750,7 @@ class Easyrec
     private function setQueryParam($key, $value)
     {
         // Do not set value if it was null because it was optional.
-        if (!is_null($value)) {
+        if (! is_null($value)) {
             $this->queryParams[$key] = $value;
         }
     }
@@ -783,8 +773,7 @@ class Easyrec
         $profileData = null,
         $itemimageurl = null,
         $itemtype = null
-    )
-    {
+    ) {
         foreach (['itemid', 'itemdescription', 'itemurl', 'itemimageurl', 'itemtype'] as $param) {
             $this->setQueryParam($param, $$param);
         }
@@ -827,8 +816,7 @@ class Easyrec
         $tenantKey,
         $itemid,
         $itemtype = null
-    )
-    {
+    ) {
         $this->tenantKey = $tenantKey;
 
         foreach (['itemid', 'itemtype'] as $param) {
