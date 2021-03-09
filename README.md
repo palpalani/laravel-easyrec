@@ -1,4 +1,4 @@
-Laravel easyrec
+Laravel EasyRec
 ===============
 
 
@@ -6,21 +6,23 @@ Laravel easyrec
 [![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)](LICENSE.md)
 [![Latest Version](https://img.shields.io/github/release/AntoineAugusti/laravel-easyrec.svg?style=flat)](https://github.com/AntoineAugusti/laravel-easyrec/releases)
 
-## What is easyrec?
-easyrec is an open source recommendation engine system that provides personalized recommendations using a RESTful API.
+## What is EasyRec?
+
+EasyRec is an open source recommendation engine system that provides personalized 
+recommendations using a RESTful API.
 
 ## The recommendation engine server
 You can use the server and call the associated RESTful API maintained by the easyrec team or download easyrec and call the API on one of your servers.
 
 For additional information, take a look at the [easyrec website](http://easyrec.org).
 
-#### Use easyrec with the server maintained by the team
+#### Use EasyRec with the server maintained by the team
 This is the ready-to-go solution. You may want to use this if you don't want to configure another server dedicated to easyrec.
 
-- Create a easyrec account: http://easyrec.org/register
+- Create an easyrec account: http://easyrec.org/register
 - Open up your mailbox and activate your account
 - Create a new Tenant in your dashboard
-- Fill your API key and your Tenant ID in the configuration file
+- Fill your API key, and your Tenant ID in the configuration file
 
 #### Configure your own easyrec server
 Take a look at the [easyrec installation guide](http://easyrec.sourceforge.net/wiki/index.php?title=Installation_Guide).
@@ -37,7 +39,7 @@ To get the latest version of Laravel Easyrec, simply add the following line to t
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
-Once Laravel Easyrec is installed, you need to register the service provider. Open up `config/app.php` and add the following to the `providers` key.
+Once Laravel EasyRec is installed, you need to register the service provider. Open up `config/app.php` and add the following to the `providers` key.
 
 * `Antoineaugusti\LaravelEasyrec\LaravelEasyrecServiceProvider::class`
 
