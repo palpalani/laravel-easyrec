@@ -817,7 +817,8 @@ class Easyrec
      * @param null $itemtype
      * @return mixed|string
      */
-    public function deleteItem($tenantKey, $itemid, $itemtype = null) {
+    public function deleteItem($tenantKey, $itemid, $itemtype = null)
+    {
         $this->tenantKey = $tenantKey;
 
         foreach (['itemid', 'itemtype'] as $param) {
