@@ -1,6 +1,6 @@
 {
 	"name": "antoineaugusti/laravel-easyrec",
-	"description": "A Laravel wrapper for the recommendation system Easyrec",
+	"description": "A Laravel wrapper for the recommendation system EasyRec",
 	"keywords": [
 		"laravel",
 		"recommendation",
@@ -9,12 +9,17 @@
 		"suggestions",
 		"suggestion"
 	],
-	"license": "Apache-2.0",
+	"license": "MIT",
 	"authors": [
 		{
 			"name": "Antoine Augusti",
 			"email": "antoine.augusti@gmail.com"
-		}
+		},
+        {
+            "name": "palPalani",
+            "email": "palani.p@gmail.com",
+            "role": "Developer"
+        }
 	],
 	"require": {
 		"php": "^7.2|^8.0",
@@ -23,8 +28,9 @@
 		"guzzlehttp/guzzle": "^6.2|^7.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~5.6",
-		"mockery/mockery": "dev-master"
+		"phpunit/phpunit": "^5.6|^6.0|^7.0|^8.0|^9.3",
+        "orchestra/testbench": "^6.0",
+        "vimeo/psalm": "^4.4"
 	},
 	"autoload": {
 		"psr-4": {
@@ -36,7 +42,14 @@
 			"Antoineaugusti\\Tests\\LaravelEasyrec\\": "tests/"
 		}
 	},
-	"minimum-stability": "stable",
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit --colors=always",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -46,5 +59,7 @@
                 "Easyrec": "Antoineaugusti\\LaravelEasyrec\\Facades\\LaravelEasyrec"
             }
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
