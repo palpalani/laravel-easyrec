@@ -752,7 +752,7 @@ class Easyrec
      * @param string $key The name of the parameter to set
      * @param mixed $value The value
      */
-    private function setQueryParam($key, $value)
+    private function setQueryParam($key, $value): void
     {
         // Do not set value if it was null because it was optional.
         if (! is_null($value)) {
@@ -816,6 +816,7 @@ class Easyrec
      * @param $itemid
      * @param null $itemtype
      * @return mixed|string
+     * @throws EasyrecException
      */
     public function deleteItem($tenantKey, $itemid, $itemtype = null)
     {
@@ -835,7 +836,7 @@ class Easyrec
      * @return mixed|string
      * @throws EasyrecException
      */
-    private function sendDeleteRequest()
+    private function sendDeleteRequest(): string
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
