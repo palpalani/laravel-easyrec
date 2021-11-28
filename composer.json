@@ -3,6 +3,10 @@
 	"description": "A Laravel wrapper for the recommendation system EasyRec",
 	"keywords": [
 		"laravel",
+		"palpalani",
+		"most viewed",
+		"most rated",
+		"prediction",
 		"recommendation",
 		"recommendation system",
 		"easyrec",
@@ -22,15 +26,16 @@
         }
 	],
 	"require": {
-		"php": "^7.3|^8.0",
+		"php": "^8.0",
 		"illuminate/support": "~5.2|^6.0|^7.0|^8.0",
 		"illuminate/session": "~5.2|^6.0|^7.0|^8.0",
 		"guzzlehttp/guzzle": "^6.2|^7.0"
 	},
 	"require-dev": {
+		"orchestra/testbench": "^5.0|^6.0",
 		"phpunit/phpunit": "^6.0|^7.0|^8.0|^9.3",
-        "orchestra/testbench": "^5.0|^6.0",
-        "vimeo/psalm": "^3.0|^4.4"
+		"rector/rector": "^0.12.5",
+		"vimeo/psalm": "^3.0|^4.4"
 	},
 	"autoload": {
 		"psr-4": {

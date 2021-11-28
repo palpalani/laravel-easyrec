@@ -11,23 +11,20 @@ use InvalidArgumentException;
 
 class Easyrec
 {
-    private $config;
-
-    private $endpoint;
+    private ?string $endpoint = null;
 
     // private $httpClient;
 
-    private $queryParams;
+    private array $queryParams;
 
-    private $response;
+    private ?array $response = null;
 
     private $tenantKey;
 
     private $profileData;
 
-    public function __construct($config)
+    public function __construct(private $config)
     {
-        $this->config = $config;
         $this->endpoint = null;
         $this->response = null;
 
@@ -580,12 +577,7 @@ class Easyrec
         $errors = $this->response['error'];
 
         // Multiple errors?
-        if (array_key_exists(0, $errors)) {
-            // Retrieve only the first error
-            $error = $errors[0];
-        } else {
-            $error = $errors;
-        }
+        $error = array_key_exists(0, $errors) ? $errors[0] : $errors;
 
         return $error;
     }
@@ -642,22 +634,16 @@ class Easyrec
             }
 
             // Add a key to the array with a list of all items' ID
-            if ($this->doesEndpointListItems()) {
-
-                // Check that we have got the expected array
-                if (! is_null($result) && array_key_exists('recommendeditems', $result)) {
-                    // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) && ! empty($result['recommendeditems'])) {
-                        $ids = [];
-                        foreach ($result['recommendeditems'] as $items) {
-                            foreach ($items as $item) {
-                                $ids[] = (int)$item['id'];
-                            }
-                        }
-
-                        $result['listids'] = $ids;
+            // Check that we have got the expected array
+            // Prevent from iterating over an empty array
+            if ($this->doesEndpointListItems() && (! is_null($result) && array_key_exists('recommendeditems', $result)) && (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
+                $ids = [];
+                foreach ($result['recommendeditems'] as $items) {
+                    foreach ($items as $item) {
+                        $ids[] = (int)$item['id'];
                     }
                 }
+                $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
             $msg = Psr7\str($e->getRequest()) . "\n";
@@ -714,22 +700,16 @@ class Easyrec
             }
 
             // Add a key to the array with a list of all items' ID.
-            if ($this->doesEndpointListItems()) {
-
-                // Check that we have got the expected array
-                if (! is_null($result) && array_key_exists('recommendeditems', $result)) {
-                    // Prevent from iterating over an empty array
-                    if (is_array($result['recommendeditems']) && ! empty($result['recommendeditems'])) {
-                        $ids = [];
-                        foreach ($result['recommendeditems'] as $items) {
-                            foreach ($items as $item) {
-                                $ids[] = (int)$item['id'];
-                            }
-                        }
-
-                        $result['listids'] = $ids;
+            // Check that we have got the expected array
+            // Prevent from iterating over an empty array
+            if ($this->doesEndpointListItems() && (! is_null($result) && array_key_exists('recommendeditems', $result)) && (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
+                $ids = [];
+                foreach ($result['recommendeditems'] as $items) {
+                    foreach ($items as $item) {
+                        $ids[] = (int)$item['id'];
                     }
                 }
+                $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
             $msg = Psr7\str($e->getRequest()) . "\n";

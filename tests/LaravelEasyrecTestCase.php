@@ -7,20 +7,27 @@ use GuzzleHttp\Adapter\MockAdapter;
 use GuzzleHttp\Adapter\TransactionInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Response;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-abstract class LaravelEasyrecTestCase extends PHPUnit_Framework_TestCase
+abstract class LaravelEasyrecTestCase extends TestCase
 {
     public $config;
+
     public const ITEM_ID = 1337;
+
     public const USER_ID = 69;
+
     public const ITEM_DESCRIPTION = "mock-description";
+
     public const ITEM_URL = "mock-url";
+
     public const RATING_NOTE = 5;
+
     public const SESSION_ID = "mock-session";
+
     public const CUSTOM_ACTION = "mock-action";
 
-    public function setUp()
+    public function setUp(): void
     {
         $config = [
             'baseURL' => 'mock-url',
