@@ -48,7 +48,7 @@ class Easyrec
     /**
      * @return string
      */
-    public function getBaseURL()
+    public function getBaseURL(): string
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/json/';
     }
@@ -56,7 +56,7 @@ class Easyrec
     /**
      * @return string
      */
-    public function getBaseApiURL()
+    public function getBaseApiURL(): string
     {
         return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/';
     }

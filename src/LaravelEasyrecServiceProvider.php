@@ -17,11 +17,11 @@ class LaravelEasyrecServiceProvider extends ServiceProvider
     }
 
     /**
-     * Setup the config.
+     * Set up the config.
      *
      * @return void
      */
-    protected function setupConfig()
+    protected function setupConfig(): void
     {
         $source = dirname(__DIR__) . '/config/easyrec.php';
         $this->publishes([$source => config_path('easyrec.php')]);
@@ -35,7 +35,6 @@ class LaravelEasyrecServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // $this->app['laraveleasyrec'] = $this->app->share(function($app) {
         $this->app->singleton('laraveleasyrec', function () {
             $config = [];
 
