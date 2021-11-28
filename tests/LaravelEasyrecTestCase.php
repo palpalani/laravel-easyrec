@@ -11,8 +11,6 @@ use PHPUnit\Framework\TestCase;
 
 abstract class LaravelEasyrecTestCase extends TestCase
 {
-    public $config;
-
     public const ITEM_ID = 1337;
 
     public const USER_ID = 69;
@@ -27,16 +25,16 @@ abstract class LaravelEasyrecTestCase extends TestCase
 
     public const CUSTOM_ACTION = 'mock-action';
 
+    public Easyrec $easyrec;
+
     public function setUp(): void
     {
-        $config = [
+        $this->easyrec = new Easyrec([
             'baseURL' => 'mock-url',
             'apiVersion' => '1.0',
             'apiKey' => 'mock-key',
             'tenantID' => 'mock-tenant',
-        ];
-
-        $this->easyrec = new Easyrec($config);
+        ]);
 
         // Always return a 200 OK response
         $mockAdapter = new MockAdapter(function (TransactionInterface $trans) {

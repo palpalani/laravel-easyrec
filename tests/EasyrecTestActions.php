@@ -14,10 +14,14 @@ class EasyrecTestActions extends LaravelEasyrecTestCase
         Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
         $this->easyrec->view(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
-        // Test required keys
-        $requiredKeys = ['itemid', 'itemdescription', 'itemurl', 'sessionid'];
         $queryParams = $this->easyrec->getQueryParams();
-        foreach ($requiredKeys as $key) {
+
+        foreach ([
+                     'itemid',
+                     'itemdescription',
+                     'itemurl',
+                     'sessionid'
+                 ] as $key) {
             $this->assertArrayHasKey($key, $queryParams);
         }
 
@@ -41,10 +45,8 @@ class EasyrecTestActions extends LaravelEasyrecTestCase
         Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
         $this->easyrec->buy(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
-        // Test required keys
-        $requiredKeys = ['itemid', 'itemdescription', 'itemurl', 'sessionid'];
         $queryParams = $this->easyrec->getQueryParams();
-        foreach ($requiredKeys as $key) {
+        foreach (['itemid', 'itemdescription', 'itemurl', 'sessionid'] as $key) {
             $this->assertArrayHasKey($key, $queryParams);
         }
 
@@ -68,10 +70,8 @@ class EasyrecTestActions extends LaravelEasyrecTestCase
         Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
         $this->easyrec->rate(self::ITEM_ID, self::RATING_NOTE, self::ITEM_DESCRIPTION, self::ITEM_URL);
 
-        // Test required keys
-        $requiredKeys = ['itemid', 'ratingvalue', 'itemdescription', 'itemurl', 'sessionid'];
         $queryParams = $this->easyrec->getQueryParams();
-        foreach ($requiredKeys as $key) {
+        foreach (['itemid', 'ratingvalue', 'itemdescription', 'itemurl', 'sessionid'] as $key) {
             $this->assertArrayHasKey($key, $queryParams);
         }
 
@@ -103,10 +103,8 @@ class EasyrecTestActions extends LaravelEasyrecTestCase
         Session::shouldReceive('getId')->once()->andReturn(self::SESSION_ID);
         $this->easyrec->sendAction(self::ITEM_ID, self::ITEM_DESCRIPTION, self::ITEM_URL, self::CUSTOM_ACTION);
 
-        // Test required keys
-        $requiredKeys = ['itemid', 'itemdescription', 'itemurl', 'actiontype', 'sessionid'];
         $queryParams = $this->easyrec->getQueryParams();
-        foreach ($requiredKeys as $key) {
+        foreach (['itemid', 'itemdescription', 'itemurl', 'actiontype', 'sessionid'] as $key) {
             $this->assertArrayHasKey($key, $queryParams);
         }
 
