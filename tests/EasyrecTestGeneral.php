@@ -2,7 +2,7 @@
 
 namespace Antoineaugusti\Tests\LaravelEasyrec;
 
-class EasryrecTestGeneral extends LaravelEasyrecTestCase
+class EasyrecTestGeneral extends LaravelEasyrecTestCase
 {
     public function testBaseURL()
     {

@@ -23,7 +23,7 @@ class LaravelEasyrecServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $source = dirname(__DIR__) . '/config/easyrec.php';
+        $source = dirname(__DIR__).'/config/easyrec.php';
         $this->publishes([$source => config_path('easyrec.php')]);
         $this->mergeConfigFrom($source, 'easyrec');
     }

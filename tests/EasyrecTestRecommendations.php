@@ -19,9 +19,9 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
         }
 
         // Test values in the request
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
-        $this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
+        $this->assertEquals($queryParams['itemid'], self::ITEM_ID);
 
         // Test the endpoint name
         $this->assertEquals('otherusersalsoviewed', $this->easyrec->getEndpoint());
@@ -32,7 +32,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->usersAlsoViewed(self::ITEM_ID, null, "not a number of results");
+        $this->easyrec->usersAlsoViewed(self::ITEM_ID, null, 'not a number of results');
     }
 
     //
@@ -50,9 +50,9 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
         }
 
         // Test values in the request
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
-        $this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
+        $this->assertEquals($queryParams['itemid'], self::ITEM_ID);
 
         // Test the endpoint name
         $this->assertEquals('otherusersalsobought', $this->easyrec->getEndpoint());
@@ -63,7 +63,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->usersAlsoBought(self::ITEM_ID, null, "not a number of results");
+        $this->easyrec->usersAlsoBought(self::ITEM_ID, null, 'not a number of results');
     }
 
     //
@@ -81,9 +81,9 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
         }
 
         // Test values in the request
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
-        $this->assertEquals($queryParams["itemid"], self::ITEM_ID);
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
+        $this->assertEquals($queryParams['itemid'], self::ITEM_ID);
 
         // Test the endpoint name
         $this->assertEquals('itemsratedgoodbyotherusers', $this->easyrec->getEndpoint());
@@ -94,7 +94,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->ratedGoodByOther(self::ITEM_ID, null, "not a number of results");
+        $this->easyrec->ratedGoodByOther(self::ITEM_ID, null, 'not a number of results');
     }
 
     //
@@ -112,9 +112,9 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
         }
 
         // Test values in the request
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
-        $this->assertEquals($queryParams["userid"], self::USER_ID);
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
+        $this->assertEquals($queryParams['userid'], self::USER_ID);
 
         // Test the endpoint name
         $this->assertEquals('recommendationsforuser', $this->easyrec->getEndpoint());
@@ -125,7 +125,7 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->recommendationsForUser(self::USER_ID, "not a number of results");
+        $this->easyrec->recommendationsForUser(self::USER_ID, 'not a number of results');
     }
 
     //
@@ -143,9 +143,9 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
         }
 
         // Test values in the request
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
-        $this->assertEquals($queryParams["userid"], self::USER_ID);
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
+        $this->assertEquals($queryParams['userid'], self::USER_ID);
 
         // Test the endpoint name
         $this->assertEquals('actionhistoryforuser', $this->easyrec->getEndpoint());
@@ -156,6 +156,6 @@ class EasyrecTestRecommendations extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->actionHistoryForUser(self::USER_ID, "not a number of results");
+        $this->easyrec->actionHistoryForUser(self::USER_ID, 'not a number of results');
     }
 }

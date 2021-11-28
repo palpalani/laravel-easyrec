@@ -13,8 +13,8 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
 
         // Test values in the request
         $queryParams = $this->easyrec->getQueryParams();
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
 
         // Test the endpoint name
         $this->assertEquals('mostvieweditems', $this->easyrec->getEndpoint());
@@ -25,14 +25,14 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostViewedItems("not a number of results");
+        $this->easyrec->mostViewedItems('not a number of results');
     }
 
     public function testMostViewedItemsTimeRangeException()
     {
         // Giving a not supported timerange should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostViewedItems(30, "not a valid timerange");
+        $this->easyrec->mostViewedItems(30, 'not a valid timerange');
     }
 
     //
@@ -44,8 +44,8 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
 
         // Test values in the request
         $queryParams = $this->easyrec->getQueryParams();
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
 
         // Test the endpoint name
         $this->assertEquals('mostboughtitems', $this->easyrec->getEndpoint());
@@ -56,14 +56,14 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostBoughtItems("not a number of results");
+        $this->easyrec->mostBoughtItems('not a number of results');
     }
 
     public function testMostBoughtItemsTimeRangeException()
     {
         // Giving a not supported timerange should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostBoughtItems(30, "not a valid timerange");
+        $this->easyrec->mostBoughtItems(30, 'not a valid timerange');
     }
 
     //
@@ -75,8 +75,8 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
 
         // Test values in the request
         $queryParams = $this->easyrec->getQueryParams();
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
 
         // Test the endpoint name
         $this->assertEquals('mostrateditems', $this->easyrec->getEndpoint());
@@ -87,14 +87,14 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostRatedItems("not a number of results");
+        $this->easyrec->mostRatedItems('not a number of results');
     }
 
     public function testMostRatedItemsTimeRangeException()
     {
         // Giving a not supported timerange should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->mostRatedItems(30, "not a valid timerange");
+        $this->easyrec->mostRatedItems(30, 'not a valid timerange');
     }
 
     //
@@ -106,8 +106,8 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
 
         // Test values in the request
         $queryParams = $this->easyrec->getQueryParams();
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
 
         // Test the endpoint name
         $this->assertEquals('bestrateditems', $this->easyrec->getEndpoint());
@@ -118,14 +118,14 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->bestRatedItems("not a number of results");
+        $this->easyrec->bestRatedItems('not a number of results');
     }
 
     public function testBestRatedItemsTimeRangeException()
     {
         // Giving a not supported timerange should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->bestRatedItems(30, "not a valid timerange");
+        $this->easyrec->bestRatedItems(30, 'not a valid timerange');
     }
 
     //
@@ -137,8 +137,8 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
 
         // Test values in the request
         $queryParams = $this->easyrec->getQueryParams();
-        $this->assertEquals($queryParams["apikey"], "mock-key");
-        $this->assertEquals($queryParams["tenantid"], "mock-tenant");
+        $this->assertEquals($queryParams['apikey'], 'mock-key');
+        $this->assertEquals($queryParams['tenantid'], 'mock-tenant');
 
         // Test the endpoint name
         $this->assertEquals('worstrateditems', $this->easyrec->getEndpoint());
@@ -149,13 +149,13 @@ class EasyrecTestRankings extends LaravelEasyrecTestCase
     {
         // Giving a string instead of a number of results should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->worstRatedItems("not a number of results");
+        $this->easyrec->worstRatedItems('not a number of results');
     }
 
     public function testWorstRatedItemsTimeRangeException()
     {
         // Giving a not supported timerange should give an exception
         $this->setExpectedException('InvalidArgumentException');
-        $this->easyrec->worstRatedItems(30, "not a valid timerange");
+        $this->easyrec->worstRatedItems(30, 'not a valid timerange');
     }
 }

@@ -17,15 +17,15 @@ abstract class LaravelEasyrecTestCase extends TestCase
 
     public const USER_ID = 69;
 
-    public const ITEM_DESCRIPTION = "mock-description";
+    public const ITEM_DESCRIPTION = 'mock-description';
 
-    public const ITEM_URL = "mock-url";
+    public const ITEM_URL = 'mock-url';
 
     public const RATING_NOTE = 5;
 
-    public const SESSION_ID = "mock-session";
+    public const SESSION_ID = 'mock-session';
 
-    public const CUSTOM_ACTION = "mock-action";
+    public const CUSTOM_ACTION = 'mock-action';
 
     public function setUp(): void
     {
