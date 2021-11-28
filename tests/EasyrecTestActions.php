@@ -17,11 +17,11 @@ class EasyrecTestActions extends LaravelEasyrecTestCase
         $queryParams = $this->easyrec->getQueryParams();
 
         foreach ([
-                     'itemid',
-                     'itemdescription',
-                     'itemurl',
-                     'sessionid'
-                 ] as $key) {
+            'itemid',
+            'itemdescription',
+            'itemurl',
+            'sessionid',
+        ] as $key) {
             $this->assertArrayHasKey($key, $queryParams);
         }
 
