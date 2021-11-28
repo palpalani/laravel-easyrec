@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\LaravelEasyrec\Facades;
+<?php
+
+namespace Antoineaugusti\LaravelEasyrec\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

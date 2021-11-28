@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
+<?php
+
+namespace Antoineaugusti\Tests\LaravelEasyrec;
 
 class EasyrecTestRankings extends LaravelEasyrecTestCase
 {

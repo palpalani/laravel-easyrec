@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\LaravelEasyrec;
+<?php
+
+namespace Antoineaugusti\LaravelEasyrec;
 
 use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client;

@@ -1,22 +1,24 @@
-<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
+<?php
 
-use \PHPUnit_Framework_TestCase;
+namespace Antoineaugusti\Tests\LaravelEasyrec;
+
 use Antoineaugusti\LaravelEasyrec\Easyrec;
 use GuzzleHttp\Adapter\MockAdapter;
 use GuzzleHttp\Adapter\TransactionInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Message\Response;
+use PHPUnit_Framework_TestCase;
 
 abstract class LaravelEasyrecTestCase extends PHPUnit_Framework_TestCase
 {
     public $config;
-    const ITEM_ID = 1337;
-    const USER_ID = 69;
-    const ITEM_DESCRIPTION = "mock-description";
-    const ITEM_URL = "mock-url";
-    const RATING_NOTE = 5;
-    const SESSION_ID = "mock-session";
-    const CUSTOM_ACTION = "mock-action";
+    public const ITEM_ID = 1337;
+    public const USER_ID = 69;
+    public const ITEM_DESCRIPTION = "mock-description";
+    public const ITEM_URL = "mock-url";
+    public const RATING_NOTE = 5;
+    public const SESSION_ID = "mock-session";
+    public const CUSTOM_ACTION = "mock-action";
 
     public function setUp()
     {

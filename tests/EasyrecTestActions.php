@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
+<?php
+
+namespace Antoineaugusti\Tests\LaravelEasyrec;
 
 use Illuminate\Support\Facades\Session;
 

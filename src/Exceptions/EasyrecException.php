@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\LaravelEasyrec\Exceptions;
+<?php
+
+namespace Antoineaugusti\LaravelEasyrec\Exceptions;
 
 use Exception;
 

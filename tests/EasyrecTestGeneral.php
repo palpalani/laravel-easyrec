@@ -1,4 +1,6 @@
-<?php namespace Antoineaugusti\Tests\LaravelEasyrec;
+<?php
+
+namespace Antoineaugusti\Tests\LaravelEasyrec;
 
 class EasryrecTestGeneral extends LaravelEasyrecTestCase
 {
@@ -12,7 +14,7 @@ class EasryrecTestGeneral extends LaravelEasyrecTestCase
         $response = ['dummy' => 'value'];
         $this->easyrec->setResponse($response);
         $this->assertFalse($this->easyrec->responseHasError());
-        
+
         $response = ['error' => ['@code' => 42, '@message' => 'mock-message']];
         $this->easyrec->setResponse($response);
         $this->assertTrue($this->easyrec->responseHasError());
@@ -25,7 +27,7 @@ class EasryrecTestGeneral extends LaravelEasyrecTestCase
         $response = ['error' => $firstError];
         $this->easyrec->setResponse($response);
         $retrievedError = $this->easyrec->retrieveFirstErrorFromResponse();
-        
+
         $this->assertArrayHasKey('@code', $retrievedError);
         $this->assertArrayHasKey('@message', $retrievedError);
 
@@ -52,7 +54,7 @@ class EasryrecTestGeneral extends LaravelEasyrecTestCase
         // if the response didn't contain an error
         $response = ['dummy' => 'value'];
         $this->easyrec->setResponse($response);
-        
+
         $this->setExpectedException('InvalidArgumentException');
         $this->easyrec->retrieveFirstErrorFromResponse();
     }
