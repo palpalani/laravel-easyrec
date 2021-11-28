@@ -23,7 +23,7 @@ class LaravelEasyrecServiceProvider extends ServiceProvider
      */
     protected function setupConfig()
     {
-        $source = dirname(__DIR__).'/config/easyrec.php';
+        $source = dirname(__DIR__) . '/config/easyrec.php';
         $this->publishes([$source => config_path('easyrec.php')]);
         $this->mergeConfigFrom($source, 'easyrec');
     }
@@ -40,7 +40,7 @@ class LaravelEasyrecServiceProvider extends ServiceProvider
             $config = [];
 
             foreach (['baseURL', 'apiKey', 'tenantID', 'apiVersion'] as $value) {
-                $config[$value] = $this->app->config->get('easyrec.'.$value);
+                $config[$value] = $this->app->config->get('easyrec.' . $value);
             }
 
             return new Easyrec($config);

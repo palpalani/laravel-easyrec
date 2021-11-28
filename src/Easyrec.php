@@ -50,7 +50,7 @@ class Easyrec
      */
     public function getBaseURL()
     {
-        return $this->config['baseURL'].'/api/'.$this->config['apiVersion'].'/json/';
+        return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/json/';
     }
 
     /**
@@ -58,7 +58,7 @@ class Easyrec
      */
     public function getBaseApiURL()
     {
-        return $this->config['baseURL'].'/api/'.$this->config['apiVersion'].'/';
+        return $this->config['baseURL'] . '/api/' . $this->config['apiVersion'] . '/';
     }
 
     /*
@@ -646,9 +646,9 @@ class Easyrec
                 $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest())."\n";
+            $msg = Psr7\str($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse())."\n";
+                $msg .= Psr7\str($e->getResponse()) . "\n";
             }
             //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
@@ -712,9 +712,9 @@ class Easyrec
                 $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest())."\n";
+            $msg = Psr7\str($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse())."\n";
+                $msg .= Psr7\str($e->getResponse()) . "\n";
             }
             //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
@@ -848,9 +848,9 @@ class Easyrec
                 throw new EasyrecException($error['@message'], $error['@code']);
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest())."\n";
+            $msg = Psr7\str($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse())."\n";
+                $msg .= Psr7\str($e->getResponse()) . "\n";
             }
             //Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
