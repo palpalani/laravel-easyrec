@@ -5,7 +5,8 @@ namespace Antoineaugusti\LaravelEasyrec;
 use Antoineaugusti\LaravelEasyrec\Exceptions\EasyrecException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7;
+use GuzzleHttp\Psr7\Message;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use InvalidArgumentException;
 
@@ -23,8 +24,11 @@ class Easyrec
 
     private $profileData;
 
-    public function __construct(private $config)
+    private $config;
+
+    public function __construct($config)
     {
+        $this->config = $config;
         $this->endpoint = null;
         $this->response = null;
 
@@ -621,7 +625,7 @@ class Easyrec
                 'query' => $this->queryParams,
                 // 'future' => true
             ]);
-            $result = json_decode($response->getBody()->getContents());
+            $result = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
             // Parse JSON and returns an array
             $this->setResponse($result);
@@ -636,7 +640,9 @@ class Easyrec
             // Add a key to the array with a list of all items' ID
             // Check that we have got the expected array
             // Prevent from iterating over an empty array
-            if ($this->doesEndpointListItems() && (! is_null($result) && array_key_exists('recommendeditems', $result)) && (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
+            if ($this->doesEndpointListItems() &&
+                (! is_null($result) && array_key_exists('recommendeditems', $result)) &&
+                (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
                 $ids = [];
                 foreach ($result['recommendeditems'] as $items) {
                     foreach ($items as $item) {
@@ -646,11 +652,11 @@ class Easyrec
                 $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest()) . "\n";
+            $msg = Message::toString($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse()) . "\n";
+                $msg .= Message::toString($e->getResponse()) . "\n";
             }
-            //Log::error('Error connecting EASYREC: ' . $msg);
+            Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
@@ -687,7 +693,7 @@ class Easyrec
                 'json' => $this->queryParams,
                 // 'future' => true
             ]);
-            $result = json_decode($response->getBody()->getContents());
+            $result = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
             // Parse JSON and returns an array.
             $this->setResponse($result);
@@ -702,7 +708,9 @@ class Easyrec
             // Add a key to the array with a list of all items' ID.
             // Check that we have got the expected array
             // Prevent from iterating over an empty array
-            if ($this->doesEndpointListItems() && (! is_null($result) && array_key_exists('recommendeditems', $result)) && (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
+            if ($this->doesEndpointListItems() &&
+                (! is_null($result) && array_key_exists('recommendeditems', $result)) &&
+                (is_array($result['recommendeditems']) && ! empty($result['recommendeditems']))) {
                 $ids = [];
                 foreach ($result['recommendeditems'] as $items) {
                     foreach ($items as $item) {
@@ -712,11 +720,11 @@ class Easyrec
                 $result['listids'] = $ids;
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest()) . "\n";
+            $msg = Message::toString($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse()) . "\n";
+                $msg .= Message::toString($e->getResponse()) . "\n";
             }
-            //Log::error('Error connecting EASYREC: ' . $msg);
+            Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
@@ -836,7 +844,7 @@ class Easyrec
             $response = $client->request('DELETE', $endpoint, [
                 'query' => $this->queryParams,
             ]);
-            $result = json_decode($response->getBody()->getContents());
+            $result = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
 
             // Parse JSON and returns an array.
             $this->setResponse($result);
@@ -848,11 +856,11 @@ class Easyrec
                 throw new EasyrecException($error['@message'], $error['@code']);
             }
         } catch (RequestException $e) {
-            $msg = Psr7\str($e->getRequest()) . "\n";
+            $msg = Message::toString($e->getRequest()) . "\n";
             if ($e->hasResponse()) {
-                $msg .= Psr7\str($e->getResponse()) . "\n";
+                $msg .= Message::toString($e->getResponse()) . "\n";
             }
-            //Log::error('Error connecting EASYREC: ' . $msg);
+            Log::error('Error connecting EASYREC: ' . $msg);
             $result = '';
         }
 
