@@ -625,7 +625,8 @@ class Easyrec
                 'query' => $this->queryParams,
                 // 'future' => true
             ]);
-            $result = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            //$result = json_decode($response->getBody()->getContents(), true, 512, JSON_THROW_ON_ERROR);
+            $result = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
             // Parse JSON and returns an array
             $this->setResponse($result);
