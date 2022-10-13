@@ -1,6 +1,6 @@
 {
-	"name": "antoineaugusti/laravel-easyrec",
-	"description": "A Laravel wrapper for the recommendation system EasyRec",
+	"name": "palpalani/laravel-easyrec",
+	"description": "A Laravel wrapper for the EasyRec",
 	"keywords": [
 		"laravel",
 		"palpalani",
@@ -8,7 +8,6 @@
 		"most rated",
 		"prediction",
 		"recommendation",
-		"recommendation system",
 		"easyrec",
 		"suggestions",
 		"suggestion"
