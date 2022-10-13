@@ -1,7 +1,7 @@
 Laravel EasyRec
 ===============
 
-[![Latest Version](https://img.shields.io/github/release/AntoineAugusti/laravel-easyrec.svg?style=flat)](https://github.com/AntoineAugusti/laravel-easyrec/releases)
+[![Latest Version](https://img.shields.io/github/release/palpalani/laravel-easyrec.svg?style=flat)](https://github.com/palpalani/laravel-easyrec/releases)
 [![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)](LICENSE.md)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/palpalani/laravel-easyrec.svg?style=flat-square)](https://packagist.org/packages/palpalani/laravel-easyrec)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/palpalani/laravel-easyrec/run-tests?label=tests)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3ATests+branch%3Amaster)
@@ -35,17 +35,18 @@ Take a look at the [easyrec installation guide](http://easyrec.sourceforge.net/w
 
 ## Installation
 
-[PHP](https://php.net) 7.2+ and [Composer](https://getcomposer.org) are required.
+[PHP](https://php.net) 8.0+ and [Composer](https://getcomposer.org) are required.
 
 To get the latest version of Laravel Easyrec, simply add the following line to the require block of your `composer.json`
 file:
 
 ```
-"antoineaugusti/laravel-easyrec": "~1.0"
+"palpalani/laravel-easyrec": "~2.0"
 ```
 
 You'll then need to run `composer install` or `composer update` to download it and have the autoloader updated.
 
+Fol old version of Laravel you need to register the extension with the blow information.
 Once Laravel EasyRec is installed, you need to register the service provider. Open up `config/app.php` and add the
 following to the `providers` key.
 
@@ -54,11 +55,6 @@ following to the `providers` key.
 You can register the Easyrec facade in the `aliases` key of your `config/app.php` file if you like.
 
 * `'Easyrec' => Antoineaugusti\LaravelEasyrec\Facades\LaravelEasyrec::class
-
-#### Looking for a Laravel 4 compatible version?
-
-Checkout the [0.5.4 version](https://github.com/AntoineAugusti/laravel-easyrec/releases/tag/v0.5.4), installable by
-requiring `"antoineaugusti/laravel-easyrec": "0.5.4"`. You can also checkout the `laravel-4` branch.
 
 ## Configuration
 
@@ -123,7 +119,7 @@ Non-null variables in the function signature are required.
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"action": "view",
 	"tenantid": "EASYREC_DEMO",
@@ -154,7 +150,7 @@ Non-null variables in the function signature are required.
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "EASYREC_DEMO",
 	"action": "buy",
@@ -187,7 +183,7 @@ Non-null variables in the function signature are required. The rating value is a
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "rate",
 	"action": "rate",
@@ -224,7 +220,7 @@ Non-null variables in the function signature are required. There are two additio
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "rate",
 	"action": "delete",
@@ -286,7 +282,7 @@ Non-null variables in the function signature are required.
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "EASYREC_DEMO",
 	"action": "otherUsersAlsoViewed",
@@ -353,7 +349,7 @@ Non-null variables in the function signature are required.
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "EASYREC_DEMO",
 	"action": "otherUsersAlsoBought",
@@ -420,7 +416,7 @@ Non-null variables in the function signature are required.
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "EASYREC_DEMO",
 	"action": "itemsRatedGoodByOtherUsers",
@@ -490,7 +486,7 @@ Non-null variables in the function signature are required. There is an additiona
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	"tenantid": "EASYREC_DEMO",
 	"action": "recommendationsForUser",
@@ -552,7 +548,7 @@ Non-null variables in the function signature are required. There is an additiona
 
 The response will be returned as a PHP array.
 
-```
+```shell
 [
 	'action' => 'actionhistory',
 	'recommendeditems' => [
