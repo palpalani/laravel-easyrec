@@ -848,7 +848,7 @@ class Easyrec
      *
      * @throws EasyrecException
      */
-    private function sendDeleteRequest(): string
+    private function sendDeleteRequest(): mixed
     {
         $endpoint = $this->getEndpoint();
         if (is_null($endpoint)) {
