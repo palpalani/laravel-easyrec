@@ -4,8 +4,8 @@ Laravel EasyRec
 [![Latest Version](https://img.shields.io/github/release/palpalani/laravel-easyrec.svg?style=flat)](https://github.com/palpalani/laravel-easyrec/releases)
 [![Software License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)](LICENSE.md)
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/palpalani/laravel-easyrec.svg?style=flat-square)](https://packagist.org/packages/palpalani/laravel-easyrec)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/palpalani/laravel-easyrec/run-tests?label=tests)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3ATests+branch%3Amaster)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/palpalani/laravel-easyrec/Check%20&%20fix%20styling?label=code%20style)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amaster)
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/palpalani/laravel-easyrec/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3Arun-tests+branch%3Amaster)
+[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/palpalani/laravel-easyrec/fix-php-code-style-issues.yml?branch=master&label=code%20style&style=flat-square)](https://github.com/palpalani/laravel-easyrec/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/palpalani/laravel-easyrec.svg?style=flat-square)](https://packagist.org/packages/palpalani/laravel-easyrec)
 
 ## What is EasyRec?
