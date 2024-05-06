@@ -34,7 +34,7 @@
             "method_protected",
             "method_private_static",
             "method_private"
-          ],
+          ]
         },
         "single_trait_insert_per_statement": true
     }
