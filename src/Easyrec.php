@@ -674,7 +674,10 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Message::toString($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: ' . $msg);
+            Log::error('Error connecting EASYREC', [
+                'message' => $msg,
+                'params' => $this->queryParams,
+            ]);
             $result = '';
         }
 
@@ -743,7 +746,10 @@ class Easyrec
             if ($e->hasResponse()) {
                 $msg .= Message::toString($e->getResponse()) . "\n";
             }
-            Log::error('Error connecting EASYREC: ' . $msg);
+            Log::error('Error connecting EASYREC', [
+                'message' => $msg,
+                'params' => $this->queryParams,
+            ]);
             $result = '';
         }
 
